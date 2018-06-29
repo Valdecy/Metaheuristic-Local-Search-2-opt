@@ -7,7 +7,7 @@
 # Lesson: Local Search-2-opt
 
 # Citation: 
-# PEREIRA, V. (2018). Project: Metaheuristic-Local_Search-2-opt, File: Python-MH-Local Search2-opt.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Local_Search-2-opt>
+# PEREIRA, V. (2018). Project: Metaheuristic-Local_Search-2-opt, File: Python-MH-Local Search-2-opt.py, GitHub repository: <https://github.com/Valdecy/Metaheuristic-Local_Search-2-opt>
 
 ############################################################################
 
@@ -51,7 +51,7 @@ def local_search_2_opt(Xdata, city_tour, full_swap = True, recursive_seeding = 1
 
 ######################## Part 1 - Usage ####################################
 
-X = pd.read_csv('Python-MH-Local Search-2-opt-Dataset-01.txt', sep = '\t') #17 cities = 2085
+X = pd.read_csv('Python-MH-Local Search-2-opt-Dataset-01.txt', sep = '\t') #17 cities => Optimum = 2085
 
 cities = [[   1,  2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,   1   ], 4722]
 ls2opt = local_search_2_opt(X, city_tour = cities, full_swap = True, recursive_seeding = 11)
