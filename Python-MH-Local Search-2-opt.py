@@ -15,28 +15,31 @@
 import pandas as pd
 import copy
 
+# Function: Distance
+def distance_calc(Xdata, route):
+    distance = 0
+    for k in range(0, len(route[0])-1):
+        m = k + 1
+        distance = distance + Xdata.iloc[route[0][k]-1, route[0][m]-1]            
+    return distance
+
 # Function: 2_opt
 def local_search_2_opt(Xdata, city_tour, recursive_seeding = 1):
     count = 0
     city_list = copy.deepcopy(city_tour)
     while (count < recursive_seeding):
-        distance = 0
         best_route = copy.deepcopy(city_list)
         seed = copy.deepcopy(city_list)        
         for i in range(0, len(city_list[0]) - 2):
             for j in range(i, len(city_list[0]) - 1):
                 best_route[0][i:j+1] = list(reversed(best_route[0][i:j+1]))           
                 best_route[0][-1]  = best_route[0][0]              
-                for k in range(0, len(city_list[0])-1):
-                    m = k + 1
-                    distance = distance + Xdata.iloc[best_route[0][k]-1, best_route[0][m]-1]            
-                best_route[1] = distance           
-                if (distance < city_list[1]):
+                best_route[1] = distance_calc(Xdata, best_route)                      
+                if (best_route[1] < city_list[1]):
                     city_list[1] = copy.deepcopy(best_route[1])
                     for n in range(0, len(city_list[0])): 
                         city_list[0][n] = best_route[0][n]          
                 best_route = copy.deepcopy(seed)
-                distance = 0
         count = count + 1  
         print(city_list)
     return city_list
