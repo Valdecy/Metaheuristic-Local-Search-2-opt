@@ -41,7 +41,7 @@ def local_search_2_opt(Xdata, city_tour, recursive_seeding = 1):
                         city_list[0][n] = best_route[0][n]          
                 best_route = copy.deepcopy(seed)
         count = count + 1  
-        print(city_list)
+        print("Iteration = ", count, "->", city_list)
     return city_list
 
 ######################## Part 1 - Usage ####################################
