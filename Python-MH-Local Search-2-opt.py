@@ -31,7 +31,7 @@ def local_search_2_opt(Xdata, city_tour, recursive_seeding = 1):
         best_route = copy.deepcopy(city_list)
         seed = copy.deepcopy(city_list)        
         for i in range(0, len(city_list[0]) - 2):
-            for j in range(i, len(city_list[0]) - 1):
+            for j in range(i+1, len(city_list[0]) - 1):
                 best_route[0][i:j+1] = list(reversed(best_route[0][i:j+1]))           
                 best_route[0][-1]  = best_route[0][0]              
                 best_route[1] = distance_calc(Xdata, best_route)                      
