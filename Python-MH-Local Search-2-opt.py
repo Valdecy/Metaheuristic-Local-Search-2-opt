@@ -92,9 +92,14 @@ def plot_tour_coordinates (coordinates, city_tour):
     return
 
 # Function: 2_opt
-def local_search_2_opt(Xdata, city_tour, recursive_seeding = 1):
-    count = 0
+def local_search_2_opt(Xdata, city_tour, recursive_seeding = -1):
+    if (recursive_seeding < 0):
+        count = recursive_seeding - 1
+    else:
+        count = 0
     city_list = copy.deepcopy(city_tour)
+    city_list_old = city_list[1]*2
+    iteration = 0
     while (count < recursive_seeding):
         best_route = copy.deepcopy(city_list)
         seed = copy.deepcopy(city_list)        
@@ -108,8 +113,16 @@ def local_search_2_opt(Xdata, city_tour, recursive_seeding = 1):
                     for n in range(0, len(city_list[0])): 
                         city_list[0][n] = best_route[0][n]          
                 best_route = copy.deepcopy(seed)
-        count = count + 1  
-        print("Iteration = ", count, "-> Distance =", city_list[1])
+        count = count + 1
+        iteration = iteration + 1  
+        print("Iteration = ", iteration, "-> Distance =", city_list[1])
+        if (city_list_old > city_list[1] and recursive_seeding < 0):
+             city_list_old = city_list[1]
+             count = -2
+             recursive_seeding = -1
+        elif(city_list[1] >= city_list_old and recursive_seeding < 0):
+            count = -1
+            recursive_seeding = -2
     print(city_list)
     return city_list
 
@@ -123,7 +136,7 @@ X = X.values
 seed = seed_function(X)
 
 # Call the Function
-ls2opt = local_search_2_opt(X, city_tour = seed, recursive_seeding = 15)
+ls2opt = local_search_2_opt(X, city_tour = seed, recursive_seeding = -1)
 
 # Plot Solution. Red Point = Initial city; Orange Point = Second City # The generated coordinates (2D projection) are aproximated, depending on the data, the optimum tour may present crosses
 plot_tour_distance_matrix(X, ls2opt)
@@ -141,7 +154,7 @@ X = buid_distance_matrix(Y)
 seed = seed_function(X)
 
 # Call the Function
-ls2opt = local_search_2_opt(X, city_tour = seed, recursive_seeding = 70)
+ls2opt = local_search_2_opt(X, city_tour = seed, recursive_seeding = -1)
 
 # Plot Solution. Red Point = Initial city; Orange Point = Second City
-plot_tour_coordinates (Y, ls2opt)
+plot_tour_coordinates(Y, ls2opt)
